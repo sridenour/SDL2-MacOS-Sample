@@ -2,7 +2,7 @@
 
 ### Initial Project Creation ###
 
-1. In Xcode, create a New Project. Choose "macOS->App".
+1. In Xcode, create a New Project. Choose "macOS->App". **Don't** select "Command-line App".
 2. In the window that pops up, enter your project name and other details such as the bundle identifier.
 3. For Interface, choose XIB
 4. For Language, choose Objective-C (your app doesn't have to be written in Objective-C)
@@ -10,6 +10,8 @@
 6. Click Next, and choose where you want your project to be created.
 
 You now have an Xcode project that will create a full-blown macOS Cocoa app, with an app bundle that can have SDL2 embedded in it for easy distribution.
+
+The reasoning behind not creating a command-line app is that we want a full-blown Mac app (aka an App Bundle) that we can embed `SDL2.framework` and our app's assets inside, and that can be notarized and distributed. If you instead select the "Command-line App" template, Xcode creates a project that just builds a bare binary.
 
 ### Setup ###
 
