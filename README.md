@@ -39,4 +39,6 @@ You should now have a working Xcode project that builds a macOS app that uses SD
 
 ### Troubleshooting ###
 
-If you run your app and get an error along the lines of not being able to validate `SDL2.framework` or some such, go to the project settings, under the `Signing & Capabilities` tab, scroll down and check `Disable Library Validation`. Then rebuild your app.
+If you run your app and get an error along the lines of not being able to validate `SDL2.framework` or some such, there are two options:
+1. Go to the project settings, under the `Signing & Capabilities` tab, scroll down and check `Disable Library Validation`. Then rebuild your app.
+2. Use an `SDL2.framework` that you built and signed yourself.
