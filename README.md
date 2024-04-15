@@ -27,7 +27,7 @@ Make sure to choose "Move to Trash" when Xcode asks if you want to really delete
 
 3. In your project's build settings, choose the YourProject target.
 
-4. In the `General` tab, find the `Frameworks, Libraries, and Embedded Content` section. Click the "+", choose `Add Other`->`Add Files` and choose `SDL2.framework` from step 2. Make sure it's the one from Step 2, that you copied next to `YourProject.xcodeproj`. You should now see `SDL2.framework` in the `Frameworks, Libraries, and Embedded Content` secion, with `Embed & Sign` next to it.
+4. In the `General` tab, find the `Frameworks, Libraries, and Embedded Content` section. Click the "+", choose `Add Other`->`Add Files` and choose `SDL2.framework` from step 2. Make sure it's the one from Step 2, that's next to `YourProject.xcodeproj`. You should now see `SDL2.framework` in the `Frameworks, Libraries, and Embedded Content` secion, with `Embed & Sign` next to it.
 
 5. In the `Build Settings` tab, search for `Framework Search Paths` and double check that Xcode has correctly added `$(PROJECT_DIR)`
 
