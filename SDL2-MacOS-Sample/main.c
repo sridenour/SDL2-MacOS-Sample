@@ -14,7 +14,7 @@ static const int WINDOW_HEIGHT = 600;
 
 static void ShowError(const char *title, const char *message)
 {
-	fprintf(stderr, "ERROR: %s\n: %s\n", title, message);
+	fprintf(stderr, "ERROR: %s: %s\n", title, message);
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, message, NULL);
 }
 
@@ -29,24 +29,28 @@ static SDL_Texture *loadImage(SDL_Renderer *renderer, const char *filename)
 		absolutePath = absolutePathBuf;
 	}
 
+#ifdef DEBUG
+	printf("%s: absolutePath: %s\n", __FUNCTION__, absolutePath);
+#endif
+
 	int width, height;
 	uint8_t *pixelData = stbi_load(absolutePath, &width, &height, NULL, 4);
 	if(pixelData == NULL) {
-		fprintf(stderr, "ERROR: can't load %s: %s\n", absolutePath, stbi_failure_reason());
+		ShowError("Can't Load Image", stbi_failure_reason());
 		return NULL;
 	}
 
 	SDL_Surface *surf = SDL_CreateRGBSurfaceWithFormatFrom(pixelData, width, height, 32, width * 4, SDL_PIXELFORMAT_RGBA32);
 	stbi_image_free(pixelData);
 	if(surf == NULL) {
-		fprintf(stderr, "ERROR: can't create surface: %s\n", SDL_GetError());
+		ShowError("Can't Create Surface", SDL_GetError());
 		return NULL;
 	}
 
 	SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
 	SDL_FreeSurface(surf);
 	if(tex == NULL) {
-		fprintf(stderr, "ERROR: can't create texture: %s: %s\n", absolutePath, SDL_GetError());
+		ShowError("Can't Create Texture", SDL_GetError());
 	}
 
 	return tex;
@@ -78,7 +82,6 @@ int main(int argc, char **argv)
 
 	SDL_Texture *image = loadImage(renderer, "hello_sdl2.png");
 	if(image == NULL) {
-		ShowError("Can't Load Image", "See console");
 		return EXIT_FAILURE;
 	}
 
