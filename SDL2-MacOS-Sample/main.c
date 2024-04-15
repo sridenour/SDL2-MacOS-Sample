@@ -38,6 +38,10 @@ static SDL_Texture *loadImage(SDL_Renderer *renderer, const char *filename)
 
 	SDL_Surface *surf = SDL_CreateRGBSurfaceWithFormatFrom(pixelData, width, height, 32, width * 4, SDL_PIXELFORMAT_RGBA32);
 	stbi_image_free(pixelData);
+	if(surf == NULL) {
+		fprintf(stderr, "ERROR: can't create surface: %s\n", SDL_GetError());
+		return NULL;
+	}
 
 	SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
 	SDL_FreeSurface(surf);
