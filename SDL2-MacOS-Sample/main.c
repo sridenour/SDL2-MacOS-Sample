@@ -85,7 +85,13 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
+	SDL_SetTextureScaleMode(image, SDL_ScaleModeBest);
+
 	int run = 1;
+	double angle = 0.0f;
+	const double rotateAmount = 0.5;
+	float scaleFactor = 1.0f;
+	float scaleAmount = 0.01f;
 	while(run) {
 		SDL_Event event;
 		while(SDL_PollEvent(&event)) {
@@ -102,12 +108,22 @@ int main(int argc, char **argv)
 		int tw, th;
 		SDL_QueryTexture(image, NULL, NULL, &tw, &th);
 		SDL_FRect displayRect;
-		displayRect.w = (float)tw;
-		displayRect.h = (float)th;
-		displayRect.x = ((float)WINDOW_WIDTH / 2.0f) - ((float)tw / 2.0f);
-		displayRect.y = ((float)WINDOW_HEIGHT / 2.0f) - ((float)th / 2.0f);
+		displayRect.w = (float)tw * scaleFactor;
+		displayRect.h = (float)th * scaleFactor;
+		displayRect.x = ((float)WINDOW_WIDTH / 2.0f) - ((float)displayRect.w / 2.0f);
+		displayRect.y = ((float)WINDOW_HEIGHT / 2.0f) - ((float)displayRect.h / 2.0f);
 
-		SDL_RenderCopyF(renderer, image, NULL, &displayRect);
+		SDL_RenderCopyExF(renderer, image, NULL, &displayRect, angle, NULL, SDL_FLIP_NONE);
+
+		angle += rotateAmount;
+		if(angle >= 360.0) {
+			angle -= 360.0;
+		}
+
+		scaleFactor += scaleAmount;
+		if(scaleFactor >= 2.0f || scaleFactor <= 0.5f) {
+			scaleAmount *= -1.0f;
+		}
 
 		SDL_RenderPresent(renderer);
 	}
