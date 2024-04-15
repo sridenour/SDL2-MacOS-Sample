@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
 	atexit(SDL_Quit);
 
-	uint32_t windowFlags = 0;
+	uint32_t windowFlags = SDL_WINDOW_SHOWN;
 	SDL_Window *window = SDL_CreateWindow("Hello, SDL2!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 										  WINDOW_WIDTH, WINDOW_HEIGHT, windowFlags);
 	if(window == NULL) {
